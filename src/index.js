@@ -3,6 +3,7 @@ const server = express();
 const routes = require('./routes')
 const PORT = 4000;
 const cors = require('cors');
+const { initDB } = require('./services/db.js')
 
 server.use(cors());
 server.use(express.json());
@@ -12,5 +13,6 @@ server.use("/api", routes);
 
 
 server.listen(PORT, () => {
-  console.log(`el servidor esta escuchando en el puerto: ${PORT}`);
+  initDB()
+  console.log(`El servidor esta escuchando en el puerto: ${PORT}`);
 });
