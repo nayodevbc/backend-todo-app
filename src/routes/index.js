@@ -41,4 +41,17 @@ router.delete("/:id", async (req,res,next) => {
     }
 })
 
+router.patch("/:id", async (req,res,next) => {
+    try {
+        const id = req.params["id"]
+        const { isDone,description,title } = req.body
+        const query = "UPDATE todos SET title = ?, isDone = ?, description = ? WHERE id = ?"
+        const result = await run(query,[title,isDone,description,id])
+        res.status(200).json({message: "To-do deleted successfully",
+        toDo: result[0]})
+    } catch (error) {
+        res.status(500).json({ message: "Error de servidor!", error })
+    }
+})
+
 module.exports = router;
